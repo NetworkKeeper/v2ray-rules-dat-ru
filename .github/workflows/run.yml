@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Go
         uses: actions/setup-go@v5
@@ -47,7 +47,7 @@ jobs:
 
       ### Generate geoip.dat ###
 
-      - name: Fetch lists from ripe.net
+      - name: Fetch CIDR lists from ripe.net
         run: ./asn.sh
 
       - name: Generate geoip.dat file
@@ -56,14 +56,12 @@ jobs:
           geoip
 
       ### Publish release ###
-      - name: List files
-        run: ls -l ./publish
 
       - name: Set variables
+        shell: bash
         run: |
           echo "RELEASE_NAME=Released on $(date '+%Y-%m-%d %H:%M')" >> $GITHUB_ENV
           echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
-        shell: bash
 
       - name: Release and upload assets
         uses: svenstaro/upload-release-action@v2

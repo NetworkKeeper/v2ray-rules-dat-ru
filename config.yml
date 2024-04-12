@@ -25,7 +25,7 @@ input:
     args:
       inputDir: ./custom
 output:
-  - type: text
+  - type: text # for debug purposes
     action: output
   - type: v2rayGeoIPDat
     action: output
